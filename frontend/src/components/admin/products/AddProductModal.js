@@ -19,6 +19,8 @@ const AddProductDetail = ({ categories }) => {
     pPrice: "",
     pOffer: 0,
     pQuantity: "",
+    pColors: "", // New field for colours
+    pSizes: "", // New field for sizes
     success: false,
     error: false,
   });
@@ -38,13 +40,13 @@ const AddProductDetail = ({ categories }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     e.target.reset();
-    console.log("here1");
 
-    if (!fData.pImage ) {
-      setFdata({ ...fData, error: "Please upload at least 2 image" });
+    if (!fData.pImage) {
+      setFdata({ ...fData, error: "Please upload at least 2 images" });
       setTimeout(() => {
         setFdata({ ...fData, error: false });
       }, 2000);
+      return;
     }
 
     try {
@@ -60,6 +62,8 @@ const AddProductDetail = ({ categories }) => {
           pCategory: "",
           pPrice: "",
           pQuantity: "",
+          pColors: "",
+          pSizes: "",
           pOffer: 0,
           success: responseData.success,
           error: false,
@@ -74,6 +78,8 @@ const AddProductDetail = ({ categories }) => {
             pCategory: "",
             pPrice: "",
             pQuantity: "",
+            pColors: "",
+            pSizes: "",
             pOffer: 0,
             success: false,
             error: false,
@@ -92,16 +98,13 @@ const AddProductDetail = ({ categories }) => {
 
   return (
     <Fragment>
-      {/* Black Overlay */}
       <div
         onClick={(e) => dispatch({ type: "addProductModal", payload: false })}
         className={`${
           data.addProductModal ? "" : "hidden"
         } fixed top-0 left-0 z-30 w-full h-full bg-black opacity-50`}
       />
-      {/* End Black Overlay */}
 
-      {/* Modal Start */}
       <div
         className={`${
           data.addProductModal ? "" : "hidden"
@@ -112,7 +115,6 @@ const AddProductDetail = ({ categories }) => {
             <span className="text-left font-semibold text-2xl tracking-wider">
               Add Product
             </span>
-            {/* Close Modal */}
             <span
               style={{ background: "#303031" }}
               onClick={(e) =>
@@ -193,7 +195,6 @@ const AddProductDetail = ({ categories }) => {
                 rows={2}
               />
             </div>
-            {/* Most Important part for uploading multiple image */}
             <div className="flex flex-col mt-4">
               <label htmlFor="image">Product Images *</label>
               <span className="text-gray-600 text-xs">Must need 2 images</span>
@@ -210,10 +211,47 @@ const AddProductDetail = ({ categories }) => {
                 accept=".jpg, .jpeg, .png"
                 className="px-4 py-2 border focus:outline-none"
                 id="image"
-                multiple = "multiple"
+                multiple="multiple"
               />
             </div>
-            {/* Most Important part for uploading multiple image */}
+
+            <div className="flex space-x-1 py-4">
+              <div className="w-1/2 flex flex-col space-y-1">
+                <label htmlFor="colours">Colours *</label>
+                <input
+                  value={fData.pColors}
+                  onChange={(e) =>
+                    setFdata({
+                      ...fData,
+                      error: false,
+                      success: false,
+                      pColors: e.target.value,
+                    })
+                  }
+                  type="text"
+                  className="px-4 py-2 border focus:outline-none"
+                  id="colours"
+                />
+              </div>
+              <div className="w-1/2 flex flex-col space-y-1">
+                <label htmlFor="sizes">Sizes *</label>
+                <input
+                  value={fData.pSizes}
+                  onChange={(e) =>
+                    setFdata({
+                      ...fData,
+                      error: false,
+                      success: false,
+                      pSizes: e.target.value,
+                    })
+                  }
+                  type="text"
+                  className="px-4 py-2 border focus:outline-none"
+                  id="sizes"
+                />
+              </div>
+            </div>
+
             <div className="flex space-x-1 py-4">
               <div className="w-1/2 flex flex-col space-y-1">
                 <label htmlFor="status">Product Status *</label>

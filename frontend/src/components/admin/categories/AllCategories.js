@@ -3,7 +3,7 @@ import { getAllCategory, deleteCategory } from "./FetchApi";
 import { CategoryContext } from "./index";
 import moment from "moment";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 
 const AllCategory = (props) => {

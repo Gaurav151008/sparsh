@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 
 export const getAllProduct = async () => {
@@ -34,6 +34,8 @@ export const createProduct = async ({
   pName,
   pDescription,
   pImage,
+  pColors,
+  pSizes,
   pStatus,
   pCategory,
   pQuantity,
@@ -41,7 +43,6 @@ export const createProduct = async ({
   pOffer,
 }) => {
   /* Most important part for uploading multiple image  */
-  console.log("here2");
   let formData = new FormData();
   for (const file of pImage) {
     formData.append("pImage", file);
@@ -53,6 +54,8 @@ export const createProduct = async ({
   formData.append("pCategory", pCategory);
   formData.append("pQuantity", pQuantity);
   formData.append("pPrice", pPrice);
+  formData.append("pColors", pColors);
+  formData.append("pSizes", pSizes);
   formData.append("pOffer", pOffer);
 
   try {
@@ -82,6 +85,8 @@ export const editProduct = async (product) => {
   formData.append("pPrice", product.pPrice);
   formData.append("pOffer", product.pOffer);
   formData.append("pImages", product.pImages);
+  formData.append("pColors", product.pColors);
+  formData.append("psizes", product.pSizes);
 
   try {
     let res = await axios.post(`${apiURL}/api/product/edit-product`, formData);

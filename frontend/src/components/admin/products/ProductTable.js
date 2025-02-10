@@ -3,7 +3,7 @@ import { getAllProduct, deleteProduct } from "./FetchApi";
 import moment from "moment";
 import { ProductContext } from "./index";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 const AllProduct = (props) => {
   const { data, dispatch } = useContext(ProductContext);

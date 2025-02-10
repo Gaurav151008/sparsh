@@ -60,41 +60,62 @@ class Product {
       return res.json({ error: "Failed to retrieve products" });
     }
   }
+
   
   async postAddProduct(req, res) {
-    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
-      req.body;
+    let {
+      pName,
+      pDescription,
+      pPrice,
+      pQuantity,
+      pCategory,
+      pColors,
+      pSizes,
+      pOffer,
+      pStatus,
+    } = req.body;
+  
     let images = req.files;
+  
+    // Split the pColors and pSizes strings into arrays
+    pColors = pColors.split(",").map((color) => color.trim());
+    pSizes = pSizes.split(",").map((size) => size.trim());
+  
+    console.log(pColors, pSizes);
+  
     // Validation
     if (
-      !pName |
-      !pDescription |
-      !pPrice |
-      !pQuantity |
-      !pCategory |
-      !pOffer |
+      !pName ||
+      !pDescription ||
+      !pPrice ||
+      !pQuantity ||
+      !pCategory ||
+      !pColors.length ||
+      !pSizes.length ||
+      !pOffer ||
       !pStatus
     ) {
       Product.deleteImages(images, "file");
-      return res.json({ error: "All filled must be required" });
+      return res.json({ error: "All fields must be required" });
     }
-    // Validate Name and description
+    // Validate Name and Description
     else if (pName.length > 255 || pDescription.length > 3000) {
       Product.deleteImages(images, "file");
       return res.json({
-        error: "Name 255 & Description must not be 3000 charecter long",
+        error: "Name must not exceed 255 characters & Description must not exceed 3000 characters",
       });
     }
     // Validate Images
     else if (images.length < 2) {
       Product.deleteImages(images, "file");
-      return res.json({ error: "Must need to provide 2 images" });
+      return res.json({ error: "Must provide at least 2 images" });
     } else {
       try {
         let allImages = [];
         for (const img of images) {
           allImages.push(img.filename);
         }
+  
         let newProduct = new productModel({
           pImages: allImages,
           pName,
@@ -102,19 +123,23 @@ class Product {
           pPrice,
           pQuantity,
           pCategory,
+          pColors, // Now stores an array of colors
+          pSizes,  // Now stores an array of sizes
           pOffer,
           pStatus,
         });
+  
         let save = await newProduct.save();
         if (save) {
           return res.json({ success: "Product created successfully" });
         }
       } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "Server error" });
       }
     }
   }
-
+  
   async postEditProduct(req, res) {
     let {
       pId,
@@ -123,13 +148,18 @@ class Product {
       pPrice,
       pQuantity,
       pCategory,
+      pColors,
+      pSizes,
       pOffer,
       pStatus,
       pImages,
     } = req.body;
     let editImages = req.files;
 
-    console.log("h1");
+    // Split the pColors and pSizes strings into arrays
+    pColors = pColors.split(",").map((color) => color.trim());
+    pSizes = pSizes.split(",").map((size) => size.trim());
+
     // Validate other fileds
     if (
       !pId |
@@ -138,11 +168,12 @@ class Product {
       !pPrice |
       !pQuantity |
       !pCategory |
+      !pColors.length |
+      !pSizes.length |
       !pOffer |
       !pStatus
     ) {
       return res.json({ error: "All filled must be required" });
-      // console.log("h1");
     }
     // Validate Name and description
     else if (pName.length > 255 || pDescription.length > 3000) {
@@ -161,6 +192,8 @@ class Product {
         pPrice,
         pQuantity,
         pCategory,
+        pColors,
+        pSizes,
         pOffer,
         pStatus,
       };

@@ -1,13 +1,12 @@
-colors
-design amap
-category menu
-about us contact us
-$ to rs
+colors //
+Sizes //
+design amap //
+category menu //
+about us contact us 
+$ to rs //
 otp //
 payment
 wish-list 
-Sizes
-quantity
-colours
-multiple size at once
+quantity //
+multiple size at once //
 admin footer

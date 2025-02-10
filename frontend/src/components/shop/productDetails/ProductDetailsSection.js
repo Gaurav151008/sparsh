@@ -12,7 +12,7 @@ import { isWishReq, unWishReq, isWish } from "../home/Mixins";
 import { updateQuantity, slideImage, addToCart, cartList } from "./Mixins";
 import { totalCost } from "../partials/Mixins";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 
 const ProductDetailsSection = (props) => {
@@ -32,6 +32,10 @@ const ProductDetailsSection = (props) => {
   const [wList, setWlist] = useState(
     JSON.parse(localStorage.getItem("wishList"))
   ); // Wishlist State Control
+
+  // New state variables for selected color and size
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -230,6 +234,38 @@ const ProductDetailsSection = (props) => {
             <div className="my-4 md:my-6 text-gray-600">
               {sProduct.pDescription}
             </div>
+
+            {/* Product Colors */}
+            <div className="my-4 md:my-6">
+              <div className="text-gray-800 text-lg font-semibold mb-2">Select Color:</div>
+              <div className="flex space-x-4">
+                {sProduct.pColors.map((color, index) => (
+                  <div
+                    key={index}
+                    className="w-8 h-8 rounded-full cursor-pointer"
+                    style={{ backgroundColor: color }}
+                    onClick={() => setSelectedColor(color)}
+                  ></div>
+                ))}
+              </div>
+            </div>
+
+            {/* Product Sizes */}
+            <div className="my-4 md:my-6">
+              <div className="text-gray-800 text-lg font-semibold mb-2">Select Size:</div>
+              <div className="flex space-x-4">
+                {sProduct.pSizes.map((size, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-2 border border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="my-4 md:my-6">
               {+quantitiy === +sProduct.pQuantity ? (
                 <span className="text-xs text-red-500">Stock limited</span>
@@ -392,6 +428,8 @@ const ProductDetailsSection = (props) => {
                           sProduct._id,
                           quantitiy,
                           sProduct.pPrice,
+                          selectedColor,
+                          selectedSize,
                           layoutDispatch,
                           setQuantitiy,
                           setAlertq,

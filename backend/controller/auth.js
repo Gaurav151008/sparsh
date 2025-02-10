@@ -77,7 +77,7 @@ class Auth {
                             name,
                             email,
                             password,
-                            userRole: 0,
+                            userRole: 1,
                             contact,  // Store contact number in the database
                         });
                         await newUser.save();

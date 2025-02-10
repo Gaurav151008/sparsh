@@ -31,6 +31,14 @@ const productSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    pColors: {
+      type: [String], // Array of strings to store color options (e.g., ["Red", "Blue"])
+      required: false,
+    },
+    pSizes: {
+      type: [String], // Array of strings to store size options (e.g., ["S", "M", "L", "XL"])
+      required: false,
+    },
     pOffer: {
       type: String,
       default: null,

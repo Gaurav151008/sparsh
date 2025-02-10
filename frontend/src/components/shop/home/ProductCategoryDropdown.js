@@ -5,7 +5,7 @@ import { getAllCategory } from "../../admin/categories/FetchApi";
 import { getAllProduct, productByPrice } from "../../admin/products/FetchApi";
 import "./style.css";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 
 const CategoryList = () => {

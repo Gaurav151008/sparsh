@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 export const isAuthenticate = () =>
   localStorage.getItem("jwt") ? JSON.parse(localStorage.getItem("jwt")) : false;

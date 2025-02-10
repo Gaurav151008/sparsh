@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import { ProductContext } from "./index";
 import { editProduct, getAllProduct } from "./FetchApi";
 import { getAllCategory } from "../categories/FetchApi";
-const apiURL = "http://localhost:8000";
+const apiURL = "http://148.135.138.82:8000";
 
 
 const EditProductModal = (props) => {
@@ -20,6 +20,8 @@ const EditProductModal = (props) => {
     pDescription: "",
     pImages: null,
     pEditImages: null,
+    pColors: "",
+    pSizes: "",
     pStatus: "",
     pCategory: "",
     pQuantity: "",
@@ -46,6 +48,8 @@ const EditProductModal = (props) => {
       pName: data.editProductModal.pName,
       pDescription: data.editProductModal.pDescription,
       pImages: data.editProductModal.pImages,
+      pColors: data.editProductModal.pColors,
+      pSizes: data.editProductModal.pSizes,
       pStatus: data.editProductModal.pStatus,
       pCategory: data.editProductModal.pCategory,
       pQuantity: data.editProductModal.pQuantity,
@@ -237,6 +241,43 @@ const EditProductModal = (props) => {
                 multiple
               />
             </div>
+            <div className="flex space-x-1 py-4">
+              <div className="w-1/2 flex flex-col space-y-1">
+                <label htmlFor="colours">Colours *</label>
+                <input
+                  value={editformData.pColors}
+                  onChange={(e) =>
+                    setEditformdata({
+                      ...editformData,
+                      error: false,
+                      success: false,
+                      pColors: e.target.value,
+                    })
+                  }
+                  type="text"
+                  className="px-4 py-2 border focus:outline-none"
+                  id="colours"
+                />
+              </div>
+              <div className="w-1/2 flex flex-col space-y-1">
+                <label htmlFor="sizes">Sizes *</label>
+                <input
+                  value={editformData.pSizes}
+                  onChange={(e) =>
+                    setEditformdata({
+                      ...editformData,
+                      error: false,
+                      success: false,
+                      pSizes: e.target.value,
+                    })
+                  }
+                  type="text"
+                  className="px-4 py-2 border focus:outline-none"
+                  id="sizes"
+                />
+              </div>
+            </div>
+
             {/* Most Important part for uploading multiple image */}
             <div className="flex space-x-1 py-4">
               <div className="w-1/2 flex flex-col space-y-1">
