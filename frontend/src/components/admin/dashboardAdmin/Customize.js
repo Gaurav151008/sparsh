@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect } from "react";
 import { DashboardContext } from "./";
 import { uploadImage, sliderImages, deleteImage } from "./Action";
 
-const apiURL = "http://148.135.138.82:8000/uploads/customize";
+const apiURL = "http://localhost:8000/uploads/customize";
 
 const Customize = () => {
   const { data, dispatch } = useContext(DashboardContext);

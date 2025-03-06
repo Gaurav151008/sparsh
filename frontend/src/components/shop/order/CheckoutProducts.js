@@ -12,7 +12,7 @@ import axios from "axios";
 
 // import DropIn from "braintree-web-drop-in-react";
 
-const apiURL = "http://148.135.138.82:8000";
+const apiURL = "http://localhost:8000";
 
 
 export const CheckoutComponent = (props) => {

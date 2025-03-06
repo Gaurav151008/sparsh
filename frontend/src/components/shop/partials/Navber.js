@@ -6,7 +6,7 @@ import { logout } from "./Action";
 import { LayoutContext } from "../index";
 import { isAdmin } from "../auth/fetchApi";
 
-const apiURL = "http://148.135.138.82:8000";
+const apiURL = "http://localhost:8000";
 
 const Navber = (props) => {
   const history = useHistory();
